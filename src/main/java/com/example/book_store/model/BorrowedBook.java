@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class BorrowedBook {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     LocalDate borrowDate;
 

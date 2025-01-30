@@ -3,11 +3,14 @@ package com.example.book_store.service.impl;
 import com.example.book_store.dto.AuthorRequestDTO;
 import com.example.book_store.dto.BookRequestDTO;
 import com.example.book_store.dto.MemberRequestDTO;
+import com.example.book_store.dto.RequestBorrowBookDto;
 import com.example.book_store.model.Author;
 import com.example.book_store.model.Book;
+import com.example.book_store.model.BorrowedBook;
 import com.example.book_store.model.Member;
 import com.example.book_store.repository.AuthorRepository;
 import com.example.book_store.repository.BookRepository;
+import com.example.book_store.repository.BorrowBookRepository;
 import com.example.book_store.repository.MemberRepository;
 import com.example.book_store.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ public class BorrowBookImpl implements BookService {
     private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private BorrowBookRepository borrowBookRepository;
 
 //    @Transactional(readOnly = true)
     @Override
@@ -60,5 +65,18 @@ public class BorrowBookImpl implements BookService {
         Member member1=new Member();
         member1.setName(memberRequestDTO.getName());
         memberRepository.save(member1);
+    }
+
+    @Override
+    public void borrowBook(RequestBorrowBookDto requestBorrowBookDto) {
+
+        Member member1=memberRepository.findById(requestBorrowBookDto.getMemberId()).orElse(null);
+        Book book1=bookRepository.findById(requestBorrowBookDto.getBookId()).orElse(null);
+
+        BorrowedBook borrowbook=new BorrowedBook();
+        borrowbook.setBook(book1);
+        borrowbook.setMember(member1);
+        borrowbook.setBorrowDate(requestBorrowBookDto.getBorrowDate());
+        borrowBookRepository.save(borrowbook);
     }
 }

@@ -3,6 +3,7 @@ package com.example.book_store.service;
 import com.example.book_store.dto.AuthorRequestDTO;
 import com.example.book_store.dto.BookRequestDTO;
 import com.example.book_store.dto.MemberRequestDTO;
+import com.example.book_store.dto.RequestBorrowBookDto;
 import com.example.book_store.model.Author;
 import com.example.book_store.model.Book;
 import com.example.book_store.model.Member;
@@ -18,4 +19,5 @@ public interface BookService {
     void addBook(BookRequestDTO bookRequestDTO);
     void addMember(MemberRequestDTO memberRequestDTO);
     void view(Member member);
+    void borrowBook(RequestBorrowBookDto requestBorrowBookDto);
 }
